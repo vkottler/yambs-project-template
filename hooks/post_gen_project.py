@@ -47,3 +47,6 @@ def datazen() -> None:
 initialize()
 datazen()
 commit()
+
+mk_cmd(["g"])
+mk_cmd(["gb"])

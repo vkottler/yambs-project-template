@@ -1,10 +1,5 @@
 build
-ninja
-build.ninja
-compile_commands.json
-.ninja*
 venv*
--.gcno
 .*cache
 *-out
 project-name

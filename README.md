@@ -2,7 +2,7 @@
     =====================================
     generator=datazen
     version=3.1.2
-    hash=15766cda0ec5725e886fb56850066eb8
+    hash=18bd7b65fae3cf72482b20ae5224e031
     =====================================
 -->
 
@@ -28,9 +28,11 @@ email [vaughnkottler@gmail.com]: <your@email.com>
 ## Structure
 
 ```
-$ tree -a -I venv*|__pycache__|dist|*cov*|*-out|config|build|*.egg-info|tags|.git*|.*cache* -- project-name
+$ tree -a -I venv*|__pycache__|dist|*cov*|*-out|config|ninja|.ninja*|build|*.egg-info|tags|.git*|.*cache* -- project-name
 
 project-name
+├── build.ninja
+├── compile_commands.json
 ├── LICENSE
 ├── local
 │   ├── configs
@@ -53,6 +55,6 @@ project-name
 │   └── __init__.py
 └── yambs.yaml
 
-8 directories, 13 files
+9 directories, 15 files
 
 ```
