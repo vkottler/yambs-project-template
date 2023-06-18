@@ -6,6 +6,7 @@ includes:
 {%- if cookiecutter.has_funding|lower == "true" %}
   - config/includes/funding.yaml
 {%- endif %}
+  - config/includes/yambs.yaml
 
 templates:
   - local/templates
@@ -28,4 +29,5 @@ groups:
 {%- if cookiecutter.has_funding|lower == "true" %}
       - groups-funding
 {%- endif %}
+      - groups-yambs-native-renders
       - renders-README.md
