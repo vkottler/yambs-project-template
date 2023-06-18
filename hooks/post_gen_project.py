@@ -23,7 +23,7 @@ def initialize() -> None:
     """Initialize a repository, 'config' sub-module."""
 
     git_cmd(["init"])
-    git_cmd(["submodule", "add", "https://github.com/vkottler/config"])
+    git_cmd(["submodule", "add", "git@github.com:vkottler/config.git"])
     git_cmd(["submodule", "update", "--init", "--recursive"])
 
 

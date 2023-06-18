@@ -4,50 +4,37 @@ A module for project-specific task registration.
 
 # built-in
 from pathlib import Path
+from subprocess import run
 from typing import Dict
 
 # third-party
-from vcorelib.task import Inbox, Outbox
 from vcorelib.task.manager import TaskManager
-from vcorelib.task.subprocess.run import SubprocessLogMixin
 
 
-class Yambs(SubprocessLogMixin):
-    """A task for generating ninja configurations."""
+def audit_local_tasks() -> None:
+    """Ensure that shared task infrastructure is present."""
 
-    default_requirements = {"vmklib.init", "venv", "python-install-yambs"}
+    local = Path(__file__).parent.joinpath("local")
+    if local.is_symlink():
+        return
 
-    async def run(self, inbox: Inbox, outbox: Outbox, *args, **kwargs) -> bool:
-        """Generate ninja configuration files."""
+    # If it's not a symlink, it shouldn't be any other kind of file.
+    assert not local.exists()
 
-        root: Path = args[0]
+    # Ensure sub-module implementation is present.
+    config = local.parent.parent.joinpath("config")
+    assert config.is_dir()
 
-        early = False
-
-        if (
-            kwargs.get("once", False)
-            and root.joinpath("build.ninja").is_file()
-        ):
-            early = True
-
-        result = True
-
-        if kwargs.get("build", False):
-            result = await self.exec(kwargs.get("ninja", "ninja"))
-
-        if early:
-            return result
-
-        params = [kwargs.get("command", "native")]
-        if kwargs.get("watch", False):
-            params.append("-w")
-
-        return await self.exec(
-            str(inbox["venv"]["venv{python_version}"]["bin"].joinpath("mbs")),
-            "-C",
-            str(root),
-            *params,
+    # Initialize submodules if we don't see the directory we're looking for.
+    vmklib = config.joinpath("python", "vmklib")
+    if not vmklib.is_dir():
+        run(
+            ["git", "-C", str(config.parent), "submodule", "update", "--init"],
+            check=True,
         )
+
+    # Create the link.
+    local.symlink_to(vmklib)
 
 
 def register(
@@ -58,11 +45,8 @@ def register(
 ) -> bool:
     """Register project tasks to the manager."""
 
-    deps = []
+    audit_local_tasks()
 
-    manager.register(Yambs("g", cwd), deps)
-    manager.register(Yambs("go", cwd, once=True), deps)
-    manager.register(Yambs("gb", cwd, once=True, build=True), deps)
-    manager.register(Yambs("gw", cwd, watch=True), deps)
+    from local import register_yambs_native
 
-    return True
+    return register_yambs_native(manager, project, cwd, substitutions)

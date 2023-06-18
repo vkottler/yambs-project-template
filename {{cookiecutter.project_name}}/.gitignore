@@ -8,3 +8,4 @@ venv*
 .*cache
 *-out
 __pycache__
+tasks/local
