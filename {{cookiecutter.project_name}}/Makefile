@@ -7,3 +7,7 @@ ifndef MK_AUTO
 $(error target this Makefile with 'mk', not '$(MAKE)' ($(MK_INFO)))
 endif
 ###############################################################################
+
+.PHONY: yaml
+
+yaml: $(YAML_PREFIX)lint-local $(YAML_PREFIX)lint-manifest.yaml
