@@ -12,6 +12,8 @@ endif
 
 COMMON_ARGS := -o $($(PROJ)_DIR) $($(PROJ)_DIR)
 
+edit: python-edit
+
 test: clean-output venv | $(VENV_CONC)
 	$(PYTHON_BIN)/cookiecutter \
 		--no-input \

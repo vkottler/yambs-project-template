@@ -30,6 +30,6 @@ jobs:
         with:
           python-version: ${{matrix.python-version}}
 
-      - name: test
-        run: |
-          mk test yaml
+      - run: pip${{matrix.python-version}} install vmklib
+
+      - run: mk test yaml
