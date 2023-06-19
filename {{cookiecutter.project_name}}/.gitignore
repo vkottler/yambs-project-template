@@ -10,4 +10,4 @@ venv*
 __pycache__
 tasks
 tags
-requirements.txt
+dev_requirements.txt
