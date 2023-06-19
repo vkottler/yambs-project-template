@@ -25,6 +25,10 @@ jobs:
         with:
           submodules: recursive
 
+      - uses: seanmiddleditch/gha-setup-ninja@master
+        with:
+          version: 1.11.1
+
       - name: python${{matrix.python-version}} setup
         uses: actions/setup-python@v2
         with:
