@@ -9,3 +9,4 @@ venv*
 *-out
 __pycache__
 tasks
+tags
