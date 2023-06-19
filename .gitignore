@@ -4,3 +4,4 @@ venv*
 *-out
 project-name
 __pycache__
+tags

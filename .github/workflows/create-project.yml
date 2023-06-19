@@ -1,0 +1,35 @@
+---
+name: Create Project
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  build:
+
+    runs-on: ${{matrix.system}}
+    strategy:
+      matrix:
+        python-version:
+          - "3.11"
+        system:
+          - ubuntu-latest
+    env:
+      PYTHON_VERSION: ${{matrix.python-version}}
+
+    steps:
+      - uses: actions/checkout@master
+        with:
+          submodules: recursive
+
+      - name: python${{matrix.python-version}} setup
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{matrix.python-version}}
+
+      - name: test
+        run: |
+          mk test yaml

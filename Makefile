@@ -12,7 +12,7 @@ endif
 
 COMMON_ARGS := -o $($(PROJ)_DIR) $($(PROJ)_DIR)
 
-test: clean-output | $(VENV_CONC)
+test: clean-output venv | $(VENV_CONC)
 	$(PYTHON_BIN)/cookiecutter \
 		--no-input \
 		$(COMMON_ARGS)
