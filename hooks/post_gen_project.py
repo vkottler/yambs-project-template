@@ -19,11 +19,19 @@ def mk_cmd(args: List[str], check: bool = True) -> None:
     subprocess.run(["mk"] + args, check=check)
 
 
-def initialize() -> None:
+def initialize(ssh_url: bool = False) -> None:
     """Initialize a repository, 'config' sub-module."""
 
     git_cmd(["init"])
-    git_cmd(["submodule", "add", "git@github.com:vkottler/config.git"])
+    git_cmd(
+        [
+            "submodule",
+            "add",
+            "git@github.com:vkottler/config.git"
+            if ssh_url
+            else "https://github.com/vkottler/config.git",
+        ]
+    )
     git_cmd(["submodule", "update", "--init", "--recursive"])
 
 
