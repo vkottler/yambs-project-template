@@ -29,11 +29,13 @@ jobs:
         with:
           version: 1.11.1
 
+      - run: sudo apt-get install lcov
+
       - name: python${{matrix.python-version}} setup
         uses: actions/setup-python@v2
         with:
           python-version: ${{matrix.python-version}}
 
-      - run: pip${{matrix.python-version}} install vmklib
+      - run: pip${{matrix.python-version}} install vmklib yambs
 
       - run: mk test yaml
