@@ -29,6 +29,8 @@ jobs:
         with:
           version: 1.11.1
 
+      - run: sudo apt-get install lcov
+
       - name: python${{matrix.python-version}} setup
         uses: actions/setup-python@v2
         with:
