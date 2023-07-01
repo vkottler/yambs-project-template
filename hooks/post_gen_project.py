@@ -58,6 +58,7 @@ commit()
 
 mk_cmd(["g"])
 mk_cmd(["gb"])
+mk_cmd(["dist"])
 
 # Things that run in CI for these projects.
 mk_cmd(["yaml", "python-lint", "python-sa"])
