@@ -13,3 +13,4 @@ tags
 dev_requirements.txt
 mklocal
 site.env
+dist
