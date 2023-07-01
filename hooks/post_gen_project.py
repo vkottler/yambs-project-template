@@ -63,4 +63,6 @@ mk_cmd(["gb"])
 mk_cmd(["yaml", "python-lint", "python-sa"])
 
 # Run tests.
+mk_cmd(["t", "variant=clang", "coverage=false"])
+subprocess.run(["ninja", "all", "format-check"], check=True)
 mk_cmd(["t"])
