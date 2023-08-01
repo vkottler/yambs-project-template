@@ -2,11 +2,13 @@
     =====================================
     generator=datazen
     version=3.1.2
-    hash=d5e7b8cd7f739aa2074d0c98ffa13cb0
+    hash=c998b2bd0d95e2db4751aa718602494e
     =====================================
 -->
 
 # yambs-project-template
+
+![Build Status](https://github.com/vkottler/yambs-project-template/actions/workflows/create-project.yml/badge.svg)
 
 The [yambs](https://github.com/vkottler/yambs) project implements a C/C++
 build-system.
@@ -19,7 +21,12 @@ build-system.
 Invoke `cookiecutter` and fill out information about your project:
 
 ```
-$ cookiecutter git@github.com:vkottler/yambs-project-template.git
+cookiecutter git@github.com:vkottler/yambs-project-template.git
+```
+
+Example output (interactive):
+
+```
 name [Vaughn Kottler]: <Your Name>
 email [vaughnkottler@gmail.com]: <your@email.com>
 ...
@@ -28,7 +35,7 @@ email [vaughnkottler@gmail.com]: <your@email.com>
 ## Structure
 
 ```
-$ tree -a -I venv*|__pycache__|dist|*cov*|*-out|config|ninja|.ninja*|build|*.egg-info|tags|mklocal|.git*|.*cache* -- project-name
+$ tree -a -I venv*|__pycache__|dist|*cov*|*-out|config|ninja|.ninja*|build|*.egg-info|tags|mklocal|.git*|.*cache*|third-party -- project-name
 
 project-name
 ├── build.ninja
@@ -36,10 +43,9 @@ project-name
 ├── .isort.cfg
 ├── LICENSE
 ├── local
-│   ├── configs
-│   │   └── license.yaml
-│   └── templates
-│       └── README.md.j2
+│   └── configs
+│       ├── license.yaml
+│       └── project.yaml
 ├── Makefile
 ├── manifest.yaml
 ├── mypy.ini
