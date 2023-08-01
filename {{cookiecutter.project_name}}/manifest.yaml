@@ -8,19 +8,10 @@ includes:
 {%- endif %}
   - config/includes/yambs.yaml
 
-templates:
-  - local/templates
-
 compiles:
   - name: local
     configs:
       - local/configs
-
-renders:
-  - name: README.md
-    output_dir: "."
-    dependencies:
-      - compiles-local
 
 groups:
   - name: all
@@ -30,4 +21,3 @@ groups:
       - groups-funding
 {%- endif %}
       - groups-yambs-native-renders
-      - renders-README.md

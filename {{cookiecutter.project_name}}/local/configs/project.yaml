@@ -1,0 +1,11 @@
+---
+name: {{cookiecutter.project_name}}
+description: {{cookiecutter.description}}
+{% if cookiecutter.username != "vkottler" %}
+owner: {{cookiecutter.username}}
+{% endif %}
+
+version:
+  major: 0
+  minor: 1
+  patch: 0
