@@ -64,6 +64,11 @@ mk_cmd(["dist", "docs"])
 mk_cmd(["yaml", "python-lint", "python-sa"])
 
 # Run tests.
-mk_cmd(["t", "variant=clang", "coverage=false"])
+if "{{cookiecutter.embedded}}" != "True":
+    mk_cmd(["t", "variant=clang", "coverage=false"])
+    mk_cmd(["t"])
+
 subprocess.run(["ninja", "all", "format-check"], check=True)
-mk_cmd(["t"])
+
+if "{{cookiecutter.embedded}}" != "True":
+    mk_cmd(["t"])
