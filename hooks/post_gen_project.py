@@ -3,8 +3,12 @@ post_gen_project - Perform some actions that are not templated.
 """
 
 # built-in
+from os import environ, pathsep
+from pathlib import Path
 import subprocess
 from typing import List
+
+IS_EMBEDDED = "{{cookiecutter.embedded}}" == "True"
 
 
 def git_cmd(args: List[str], check: bool = True) -> None:
@@ -52,23 +56,48 @@ def datazen() -> None:
     mk_cmd(["dz-sync"])
 
 
+def remove_conditionals() -> None:
+    """Remove some files depending on configuration."""
+
+    if not IS_EMBEDDED:
+        for path in [Path("src", "retarget.c")]:
+            path.unlink()
+
+
 initialize()
 datazen()
+remove_conditionals()
 commit()
 
-mk_cmd(["g"])
-mk_cmd(["gb"])
-mk_cmd(["dist", "docs"])
+BASE = []
+
+if IS_EMBEDDED:
+    mk_cmd(["download-toolchains"])
+
+    # Add toolchains to PATH.
+    environ["PATH"] = (
+        str(Path("toolchains", "arm-picolibc-eabi", "bin"))
+        + pathsep
+        + environ["PATH"]
+    )
+
+    BASE.append("variant={{cookiecutter.project_name}}")
+
+mk_cmd(["g"] + BASE)
+mk_cmd(["gb"] + BASE)
+mk_cmd(["dist", "docs"] + BASE)
 
 # Things that run in CI for these projects.
 mk_cmd(["yaml", "python-lint", "python-sa"])
 
 # Run tests.
-if "{{cookiecutter.embedded}}" != "True":
+if not IS_EMBEDDED:
     mk_cmd(["t", "variant=clang", "coverage=false"])
     mk_cmd(["t"])
+else:
+    subprocess.run(["ninja", "format"], check=True)
 
 subprocess.run(["ninja", "all", "format-check"], check=True)
 
-if "{{cookiecutter.embedded}}" != "True":
+if not IS_EMBEDDED:
     mk_cmd(["t"])

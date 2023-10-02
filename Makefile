@@ -8,7 +8,7 @@ $(error target this Makefile with 'mk', not '$(MAKE)' ($(MK_INFO)))
 endif
 ###############################################################################
 
-.PHONY: test clean-output yaml
+.PHONY: test test-interactive clean-output yaml
 
 COMMON_ARGS := -o $($(PROJ)_DIR) $($(PROJ)_DIR)
 
@@ -19,9 +19,12 @@ test: clean-output venv | $(VENV_CONC)
 		--no-input \
 		$(COMMON_ARGS)
 
+test-interactive: clean-output | $(VENV_CONC)
+	$(PYTHON_BIN)/cookiecutter $(COMMON_ARGS)
+
 OUTPUT := project-name
 
 clean-output:
-	rm -rf $($(PROJ)_DIR)/$(OUTPUT)
+	sudo rm -rf $($(PROJ)_DIR)/$(OUTPUT)
 
 yaml: $(YAML_PREFIX)lint-local $(YAML_PREFIX)lint-manifest.yaml
