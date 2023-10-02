@@ -2,7 +2,7 @@
     =====================================
     generator=datazen
     version=3.1.2
-    hash=007e4fba0c01a0331ea1e5745207bf72
+    hash=acfad1a15664068b8e15e015501c4307
     =====================================
 -->
 
@@ -44,9 +44,10 @@ project-name
 ├── .isort.cfg
 ├── LICENSE
 ├── local
-│   └── configs
-│       ├── license.yaml
-│       └── project.yaml
+│   ├── configs
+│   │   ├── license.yaml
+│   │   └── project.yaml
+│   └── yambs.yaml
 ├── Makefile
 ├── manifest.yaml
 ├── mypy.ini
@@ -64,6 +65,6 @@ project-name
 │   └── conf.py
 └── yambs.yaml
 
-8 directories, 18 files
+8 directories, 19 files
 
 ```

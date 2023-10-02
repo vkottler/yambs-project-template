@@ -1,9 +1,12 @@
 ---
 name: {{cookiecutter.project_name}}
 description: {{cookiecutter.description}}
-{% if cookiecutter.username != "vkottler" %}
+{%- if cookiecutter.username != "vkottler" %}
 owner: {{cookiecutter.username}}
-{% endif %}
+{%- endif %}
+{%- if cookiecutter.embedded|lower == "true" %}
+embedded: true
+{%- endif %}
 
 version:
   major: 0

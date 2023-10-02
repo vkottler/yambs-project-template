@@ -1,0 +1,12 @@
+---
+includes:
+  - ../config/python/yambs/cflag_groups.yaml
+{%- if cookiecutter.embedded|lower == "true" %}
+
+default_target: {{cookiecutter.project_name}}
+
+variants:
+  {{cookiecutter.project_name}}:
+    prefix: "arm-picolibc-eabi-"
+    cflag_groups: [picolib]
+{%- endif %}
