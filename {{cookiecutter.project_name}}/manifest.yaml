@@ -21,3 +21,6 @@ groups:
       - groups-funding
 {%- endif %}
       - groups-yambs-native-renders
+{%- if cookiecutter.embedded|lower == "true" %}
+      - groups-yambs-embedded-renders
+{%- endif %}
