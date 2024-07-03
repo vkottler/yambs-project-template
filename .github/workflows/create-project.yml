@@ -14,9 +14,9 @@ jobs:
     strategy:
       matrix:
         python-version:
-          - "3.11"
+          - "3.12"
         system:
-          - ubuntu-latest
+          - ubuntu-24.04
     env:
       PYTHON_VERSION: ${{matrix.python-version}}
 
@@ -29,7 +29,15 @@ jobs:
         with:
           version: 1.11.1
 
-      - run: sudo apt-get install lcov doxygen clang-15 clang-format-15
+      # - name: setup clang 17
+      #   run: |
+      #     wget https://apt.llvm.org/llvm.sh
+      #     chmod +x ./llvm.sh
+      #     sudo ./llvm.sh 17
+      #     rm llvm.sh
+
+      - run: sudo apt-get install clang-17 clang-format-17
+      - run: sudo apt-get install lcov doxygen gcc-13 g++-13
 
       - name: python${{matrix.python-version}} setup
         uses: actions/setup-python@v2
